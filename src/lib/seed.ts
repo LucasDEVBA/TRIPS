@@ -28,7 +28,7 @@ async function main() {
           "Luxuoso",
         ],
         recommended: true,
-        maxGuests: 10,
+        maxGuests: 5,
       },
       {
         name: "Hotel Palace",
@@ -55,7 +55,7 @@ async function main() {
           "Luxuoso",
         ],
         recommended: true,
-        maxGuests: 10,
+        maxGuests: 5,
       },
       {
         name: "Royal Oasis",
@@ -82,7 +82,7 @@ async function main() {
           "Luxuoso",
         ],
         recommended: true,
-        maxGuests: 10,
+        maxGuests: 5,
       },
       {
         name: "Azure Haven Retreat",
@@ -109,7 +109,7 @@ async function main() {
           "Luxuoso",
         ],
         recommended: true,
-        maxGuests: 10,
+        maxGuests: 5,
       },
       {
         name: "Palazzo Sereno",
@@ -135,8 +135,8 @@ async function main() {
           "Vista paradisíaca",
           "Luxuoso",
         ],
-        recommended: true,
-        maxGuests: 10,
+        recommended: false,
+        maxGuests: 5,
       },
       {
         name: "Mountain Peak Lodge",
@@ -162,8 +162,8 @@ async function main() {
           "Vista paradisíaca",
           "Luxuoso",
         ],
-        recommended: true,
-        maxGuests: 10,
+        recommended: false,
+        maxGuests: 5,
       },
       {
         name: "Encanto da Serra",
@@ -189,8 +189,8 @@ async function main() {
           "Vista paradisíaca",
           "Luxuoso",
         ],
-        recommended: true,
-        maxGuests: 10,
+        recommended: false,
+        maxGuests: 5,
       },
       {
         name: "Rancho Sereno",
@@ -216,8 +216,8 @@ async function main() {
           "Vista paradisíaca",
           "Luxuoso",
         ],
-        recommended: true,
-        maxGuests: 10,
+        recommended: false,
+        maxGuests: 5,
       },
       {
         name: "Chalé Serenidade",
@@ -243,8 +243,8 @@ async function main() {
           "Vista paradisíaca",
           "Luxuoso",
         ],
-        recommended: true,
-        maxGuests: 10,
+        recommended: false,
+        maxGuests: 5,
       },
     ],
   });
