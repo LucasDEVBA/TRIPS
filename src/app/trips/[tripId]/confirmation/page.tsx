@@ -71,12 +71,16 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
     });
 
     if (!res.ok) {
-      return toast.error("Ocorreu um erro ao realizar a reserva!");
+      return toast.error("Ocorreu um erro ao realizar a reserva!", {
+        position: "bottom-center",
+      });
     }
 
     router.push("/");
 
-    toast.success("Reserva realizada com sucesso!");
+    toast.success("Reserva realizada com sucesso!", {
+      position: "bottom-center",
+    });
   };
 
   const startDate = new Date(searchParams.get("startDate") as string);
