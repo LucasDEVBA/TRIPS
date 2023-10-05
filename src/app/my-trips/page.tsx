@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Prisma } from "@prisma/client";
 import UserReservationItem from "./components/UserReservationItem";
 import Button from "@/components/Button";
+import Link from "next/link";
 
 const MyTrips = () => {
   const [reservations, setReservations] = useState<
