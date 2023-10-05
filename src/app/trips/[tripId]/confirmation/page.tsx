@@ -1,4 +1,5 @@
 "use client";
+
 import { Trip } from "@prisma/client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
@@ -7,6 +8,7 @@ import { format } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 import Button from "@/components/Button";
 
@@ -18,7 +20,7 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
 
   const router = useRouter();
 
-  const { status } = useSession();
+  const { status, data } = useSession();
 
   const searchParams = useSearchParams();
   useEffect(() => {
@@ -52,6 +54,30 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
   }, [status]);
 
   if (!trip) return null;
+
+  const handleBuyConfirmation = async () => {
+    const res = await fetch("http://localhost:3000/api/trips/reservation", {
+      method: "POST",
+      body: Buffer.from(
+        JSON.stringify({
+          startDate: searchParams.get("startDate"),
+          endDate: searchParams.get("endDate"),
+          tripId: params.tripId,
+          guests: Number(searchParams.get("guests")),
+          userId: (data?.user as any).id,
+          totalPaid: totalPrice,
+        })
+      ),
+    });
+
+    if (!res.ok) {
+      return toast.error("Ocorreu um erro ao realizar a reserva!");
+    }
+
+    router.push("/");
+
+    toast.success("Reserva realizada com sucesso!");
+  };
 
   const startDate = new Date(searchParams.get("startDate") as string);
   const endDate = new Date(searchParams.get("endDate") as string);
@@ -105,7 +131,9 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
         <h3 className="font-semibold mt-5">Hóespedes</h3>
         <p>{guests} hóspedes</p>
 
-        <Button className="mt-5">Finalizar Compra</Button>
+        <Button className="mt-5" onClick={handleBuyConfirmation}>
+          Finalizar Compra
+        </Button>
       </div>
     </div>
   );
