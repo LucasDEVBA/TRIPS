@@ -8,6 +8,7 @@ import Link from "next/link";
 
 const Header = () => {
   const [menuIsOpen, setMenutIsOpen] = useState(false);
+
   const { status, data } = useSession();
 
   const handleLoginClick = () => signIn();
@@ -18,6 +19,8 @@ const Header = () => {
   };
 
   const handleMenuClick = () => setMenutIsOpen(!menuIsOpen);
+
+  const handleMyTripsClick = () => {};
 
   return (
     <div className="container mx-auto p-5 py-0 h-[93px] flex justify-between items-center">
@@ -52,9 +55,14 @@ const Header = () => {
             className="rounded-full shadow-lg"
           />
           {menuIsOpen && (
-            <div className="z-50 absolute top-12 left-0 w-full h-full bg-white rounded-lg shadow-md flex flex-col justify-center items-center">
+            <div className="z-50 absolute top-12 left-0 w-full h-[100px] bg-white rounded-lg shadow-md flex flex-col justify-center items-center">
+              <Link href="/my-trips">
+                <button className="text-primary text-sm font-semibold pb-2 border-b border-grayPrimary border-solid">
+                  Minhas Viagens
+                </button>
+              </Link>
               <button
-                className="text-primary text-sm font-semibold"
+                className="text-primary text-sm font-semibold pt-2"
                 onClick={handleLogoutClick}
               >
                 Logout
