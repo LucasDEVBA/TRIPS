@@ -6,6 +6,7 @@ import DatePicker from "@/components/DatePicker";
 import Input from "@/components/Input";
 import { Trip } from "@prisma/client";
 import { differenceInDays } from "date-fns";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 
@@ -33,6 +34,8 @@ const TripReservation = ({ trip }: TripReservationProps) => {
     watch,
   } = useForm<TripReservationForm>();
 
+  const router = useRouter();
+
   const onSubmit = async (data: TripReservationForm) => {
     const response = await fetch("http://localhost:3000/api/trips/check", {
       method: "POST",
@@ -46,38 +49,41 @@ const TripReservation = ({ trip }: TripReservationProps) => {
     });
 
     const res = await response.json();
-    validateReservation(res);
-  };
-
-  const validateReservation = (res: TripReservationError) => {
     if (res?.error?.code === "TRIP_ALREADY_RESERVED") {
       setError("startDate", {
         type: "manual",
-        message: "Essa data já está reservada.",
+        message: "Esta data já está reservada.",
       });
 
       return setError("endDate", {
         type: "manual",
-        message: "Essa data já está reservada.",
+        message: "Esta data já está reservada.",
       });
     }
 
     if (res?.error?.code === "INVALID_START_DATE") {
-      setError("startDate", {
+      return setError("startDate", {
         type: "manual",
-        message: "Data inválida",
+        message: "Data inválida.",
       });
-
-      if (res?.error?.code === "INVALID_END_DATE") {
-        return setError("endDate", {
-          type: "manual",
-          message: "Data inválida",
-        });
-      }
     }
+
+    if (res?.error?.code === "INVALID_END_DATE") {
+      return setError("endDate", {
+        type: "manual",
+        message: "Data inválida.",
+      });
+    }
+    router.push(
+      `/trips/${
+        trip.id
+      }/confirmation?startDate=${startDate?.toISOString()}&endDate=${endDate?.toISOString()}&guests=${guests}`
+    );
   };
+
   const startDate = watch("startDate");
   const endDate = watch("endDate");
+  const guests = watch("guests");
 
   return (
     <div className="flex flex-col p-5 ">
