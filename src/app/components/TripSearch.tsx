@@ -4,26 +4,81 @@ import Button from "@/components/Button";
 import CurrencyInput from "@/components/CurrencyInput";
 import DatePicker from "@/components/DatePicker";
 import Input from "@/components/Input";
+import { Trip } from "@prisma/client";
+import { useRouter } from "next/navigation";
 import React from "react";
+import { Controller, useForm } from "react-hook-form";
+
+interface TripSearchForm {
+  text: string;
+  startDate: Date | null;
+  budget: number;
+}
 
 const TripSearch = () => {
+  const router = useRouter();
+
+  const {
+    control,
+    formState: { errors },
+    register,
+    handleSubmit,
+  } = useForm<TripSearchForm>();
+
+  const onSubmit = (data: TripSearchForm) => {
+    router.push(
+      `/trips/search?text=${
+        data.text
+      }&startDate=${data.startDate?.toISOString()}&budget=${data.budget}`
+    );
+  };
+
   return (
     <div className="container mx-auto p-5 bg-search-background bg-cover bg-center bg-no-repeat">
       <h1 className="text-2xl text-primaryDarker text-center font-semibold">
         Encontre sua próxima <span className="text-primary">Viagem!</span>
       </h1>
       <div className="flex flex-col gap-4 mt-5">
-        <Input placeholder="Onde você quer ir?" />
+        <Input
+          placeholder="Onde você quer ir?"
+          error={!!errors.text}
+          errorMessage={errors.text?.message}
+          {...register("text", {
+            required: {
+              value: true,
+              message: "Campo obrigatório na pesquisa.",
+            },
+          })}
+        />
 
         <div className="flex gap-4">
-          <DatePicker
-            placeholderText="Data de ida"
-            onChange={() => {}}
-            className="w-full"
+          <Controller
+            name="startDate"
+            control={control}
+            render={({ field }) => (
+              <DatePicker
+                placeholderText="Data de Início"
+                onChange={field.onChange}
+                selected={field.value}
+                className="w-full"
+                // minDate={new Date()}
+              />
+            )}
           />
-          <CurrencyInput placeholder="Orçamento" />
+          <Controller
+            name="budget"
+            control={control}
+            render={({ field }) => (
+              <CurrencyInput
+                placeholder="Orçamento"
+                onValueChange={field.onChange}
+                value={field.value}
+                onBlur={field.onBlur}
+              />
+            )}
+          />
         </div>
-        <Button>Pesquisar</Button>
+        <Button onClick={() => handleSubmit(onSubmit)()}>Pesquisar</Button>
       </div>
     </div>
   );
