@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const QuickSearch = () => {
@@ -13,25 +14,50 @@ const QuickSearch = () => {
       </div>
       <div className="flex w-full justify-around mt-4">
         <div className="flex flex-col items-center gap-1">
-          <Image width={30} height={30} alt="hotel" src={"/hotel-icon.png"} />
-          <p className="text-sm text-grayPrimary ">Hotel</p>
+          <Link
+            href={"/trips/search?text=hotel"}
+            className="flex flex-col items-center hover:text-primary transition-all"
+          >
+            <Image width={30} height={30} alt="hotel" src={"/hotel-icon.png"} />
+            <p className="text-sm text-grayPrimary ">Hotel</p>
+          </Link>
         </div>
         <div className="flex flex-col items-center gap-1">
-          <Image width={30} height={30} alt="farm" src={"/farm-icon.png"} />
-          <p className="text-sm text-grayPrimary ">Fazenda</p>
+          <Link
+            href={"/trips/search?text=fazenda"}
+            className="flex flex-col items-center hover:text-primary transition-all"
+          >
+            <Image
+              width={30}
+              height={30}
+              alt="fazenda"
+              src={"/farm-icon.png"}
+            />
+            <p className="text-sm text-grayPrimary ">Fazenda</p>
+          </Link>
         </div>
         <div className="flex flex-col items-center gap-1">
-          <Image
-            width={30}
-            height={30}
-            alt="cottage"
-            src={"/cottage-icon.png"}
-          />
-          <p className="text-sm text-grayPrimary ">Chalé</p>
+          <Link
+            href={"/trips/search?text=Chalé"}
+            className="flex flex-col items-center hover:text-primary transition-all"
+          >
+            <Image
+              width={30}
+              height={30}
+              alt="Chalé"
+              src={"/cottage-icon.png"}
+            />
+            <p className="text-sm text-grayPrimary ">Chalé</p>
+          </Link>
         </div>
         <div className="flex flex-col items-center gap-1">
-          <Image width={30} height={30} alt="inn" src={"/inn-icon.png"} />
-          <p className="text-sm text-grayPrimary ">Pousada</p>
+          <Link
+            href={"/trips/search?text=Pousada"}
+            className="flex flex-col items-center hover:text-primary transition-all"
+          >
+            <Image width={30} height={30} alt="Pousada" src={"/inn-icon.png"} />
+            <p className="text-sm text-grayPrimary ">Pousada</p>
+          </Link>
         </div>
       </div>
     </div>
