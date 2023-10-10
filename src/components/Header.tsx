@@ -23,13 +23,12 @@ const Header = () => {
   const handleMyTripsClick = () => {};
 
   return (
-    <div className="container mx-auto p-5 py-0 h-[93px] flex justify-between items-center">
+    <div className="container mx-auto p-5 py-0 h-[93px] flex justify-between items-center lg:border-b lg:border-grayLighter">
       <Link href={"/"}>
         <div className="relative h-[32px] w-[182px]">
           <Image fill src="/logo.png" alt="fullstack trips" />
         </div>
       </Link>
-
       {status === "unauthenticated" && (
         <button
           className="text-primary text-sm font-semibold"
@@ -38,7 +37,6 @@ const Header = () => {
           Login
         </button>
       )}
-
       {status === "authenticated" && data.user && (
         <div className="flex items-center gap-3 border-grayLighter border border-solid rounded-full py-2 px-3 relative">
           <AiOutlineMenu
