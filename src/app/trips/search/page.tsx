@@ -1,16 +1,9 @@
 "use client";
 
 import TripItem from "@/components/TripItem";
-import { prisma } from "@/lib/prisma";
 import { Trip } from "@prisma/client";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-
-interface GetTripsParams {
-  text: string;
-  startDate: Date | null;
-  budget?: string;
-}
 
 const Trips = () => {
   const [trips, setTrips] = useState<Trip[]>();
