@@ -26,7 +26,7 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
   const searchParams = useSearchParams();
   useEffect(() => {
     const fetchTrip = async () => {
-      const response = await fetch(`http://localhost:3000/api/trips/check`, {
+      const response = await fetch(`/api/trips/check`, {
         method: "POST",
         body: JSON.stringify({
           startDate: searchParams.get("startDate"),
@@ -57,7 +57,7 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
   if (!trip) return null;
 
   const handleBuyConfirmation = async () => {
-    const res = await fetch("http://localhost:3000/api/payment", {
+    const res = await fetch("/api/payment", {
       method: "POST",
       body: Buffer.from(
         JSON.stringify({
