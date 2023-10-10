@@ -156,8 +156,10 @@ const TripReservation = ({ trip }: TripReservationProps) => {
         <p className="font-medium text-sm text-primaryDarker">
           R$
           {startDate && endDate
-            ? differenceInDays(endDate, startDate) * trip.pricePerDay
-            : 0}
+            ? `${
+                differenceInDays(endDate, startDate) * (trip.pricePerDay as any)
+              }` ?? 1
+            : "R$0"}
         </p>
       </div>
 
