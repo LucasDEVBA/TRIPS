@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 
 const generateSearchQuery = (
   text: string,
-  startDate?: string | null
+  startDate?: string | null,
+  endDate?: string | null
   // budget?: string | null
 ) => {
   let searchQuery: any = {
@@ -34,7 +35,21 @@ const generateSearchQuery = (
         ...searchQuery.AND,
         {
           startDate: {
-            gte: startDate,
+            lte: startDate,
+          },
+        },
+      ],
+    };
+  }
+
+  if (endDate !== "undefined" && endDate !== "null") {
+    searchQuery = {
+      ...searchQuery,
+      AND: [
+        ...searchQuery.AND,
+        {
+          endDate: {
+            gte: endDate,
           },
         },
       ],
@@ -61,6 +76,7 @@ export async function GET(request: Request) {
 
   const text = searchParams.get("text");
   const startDate = searchParams.get("startDate");
+  const endDate = searchParams.get("endDate");
   // const budget = searchParams.get("budget");
 
   if (!text) {
@@ -73,7 +89,7 @@ export async function GET(request: Request) {
   }
 
   const tripsResults = await prisma.trip.findMany({
-    where: generateSearchQuery(text, startDate),
+    where: generateSearchQuery(text, startDate, endDate),
   });
 
   return new NextResponse(JSON.stringify(tripsResults), { status: 200 });

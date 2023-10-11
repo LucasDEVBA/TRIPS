@@ -12,6 +12,7 @@ import { Controller, useForm } from "react-hook-form";
 interface TripSearchForm {
   text: string;
   startDate: Date | null;
+  endDate: Date | null;
   budget: number;
 }
 
@@ -29,7 +30,7 @@ const TripSearch = () => {
     router.push(
       `/trips/search?text=${
         data.text
-      }&startDate=${data.startDate?.toISOString()}&budget=${data.budget}`
+      }&startDate=${data.startDate?.toISOString()}&budget=${data.endDate?.toISOString()}`
     );
   };
 
@@ -62,7 +63,19 @@ const TripSearch = () => {
                 onChange={field.onChange}
                 selected={field.value}
                 className="w-full shadow-md"
-                // minDate={new Date()}
+                minDate={new Date()}
+              />
+            )}
+          />
+          <Controller
+            name="endDate"
+            control={control}
+            render={({ field }) => (
+              <DatePicker
+                placeholderText="Data de Volta"
+                onChange={field.onChange}
+                selected={field.value}
+                className="w-full shadow-md"
               />
             )}
           />
