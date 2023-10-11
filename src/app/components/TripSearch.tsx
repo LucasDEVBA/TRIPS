@@ -30,7 +30,7 @@ const TripSearch = () => {
     router.push(
       `/trips/search?text=${
         data.text
-      }&startDate=${data.startDate?.toISOString()}&budget=${data.endDate?.toISOString()}`
+      }&startDate=${data.startDate?.toISOString()}&endDate=${data.endDate?.toISOString()}`
     );
   };
 
@@ -95,6 +95,13 @@ const TripSearch = () => {
         </div>
         <Button
           onClick={() => handleSubmit(onSubmit)()}
+          //@ts-ignore
+          onKeyDown={document.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+              const handle = handleSubmit(onSubmit)();
+              return handle;
+            }
+          })}
           className="w-1/2 lg:h-fit shadow-md"
         >
           Pesquisar
