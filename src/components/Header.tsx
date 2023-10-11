@@ -24,13 +24,12 @@ const Header = () => {
 
   return (
     <div className="container mx-auto p-5 py-0 h-[93px] flex justify-between items-center lg:border-b lg:border-grayLighter">
-      <Link href={"/"}>
-        <div className="relative h-[32px] w-[182px] flex items-center flex-wrap">
+      <div className="relative h-[32px] w-[32px] flex items-center flex-wrap gap-5">
+        <Link href={"/"}>
           <Image fill src="/next-js.svg" alt="fullstack trips" />
-
-          <span className="hidden lg:block">NextTrips</span>
-        </div>
-      </Link>
+          <span className="ml-8 font-semibold">NextTrips</span>
+        </Link>
+      </div>
       {status === "unauthenticated" && (
         <button
           className="text-primary text-sm font-semibold"

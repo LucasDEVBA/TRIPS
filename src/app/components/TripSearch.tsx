@@ -34,12 +34,13 @@ const TripSearch = () => {
   };
 
   return (
-    <div className="container mx-auto p-5 bg-search-background bg-cover bg-center bg-no-repeat  lg:py-28">
+    <div className="container mx-auto p-5 bg-search-background bg-cover bg-center bg-no-repeat  lg:py-28 shadow-md">
       <h1 className="text-2xl text-primaryDarker text-center font-semibold lg:text-[2.5rem]">
         Encontre sua próxima <span className="text-primary">Viagem!</span>
       </h1>
-      <div className="flex flex-col gap-4 mt-5 lg:flex-row lg:max-w-[948px] lg:mx-auto lg:p-4 lg:bg-primary lg:mt-12 lg:bg-opacity-20 lg:rounded-lg">
+      <div className="flex flex-col gap-4 mt-5 lg:flex-row lg:max-w-[948px] lg:mx-auto lg:p-4 lg:bg-primary lg:mt-12 lg:bg-opacity-20 lg:rounded-lg lg:shadow-md">
         <Input
+          className="shadow-md"
           placeholder="Onde você quer ir?"
           error={!!errors.text}
           errorMessage={errors.text?.message}
@@ -51,7 +52,7 @@ const TripSearch = () => {
           })}
         />
 
-        <div className="flex gap-4 lg:w-full">
+        <div className="flex gap-4 lg:w-full ">
           <Controller
             name="startDate"
             control={control}
@@ -60,7 +61,7 @@ const TripSearch = () => {
                 placeholderText="Data de Início"
                 onChange={field.onChange}
                 selected={field.value}
-                className="w-full"
+                className="w-full shadow-md"
                 // minDate={new Date()}
               />
             )}
@@ -74,13 +75,14 @@ const TripSearch = () => {
                 onValueChange={field.onChange}
                 value={field.value}
                 onBlur={field.onBlur}
+                className="shadow-md"
               />
             )}
           />
         </div>
         <Button
           onClick={() => handleSubmit(onSubmit)()}
-          className="w-1/2 lg:h-fit"
+          className="w-1/2 lg:h-fit shadow-md"
         >
           Pesquisar
         </Button>
