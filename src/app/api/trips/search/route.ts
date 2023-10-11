@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 
 const generateSearchQuery = (
   text: string,
-  startDate?: string | null,
-  budget?: string | null
+  startDate?: string | null
+  // budget?: string | null
 ) => {
   let searchQuery: any = {
     OR: [
@@ -41,18 +41,18 @@ const generateSearchQuery = (
     };
   }
 
-  if (budget !== "undefined" && budget !== "null") {
-    searchQuery = {
-      ...searchQuery,
-      AND: [
-        {
-          pricePerDay: {
-            lte: budget,
-          },
-        },
-      ],
-    };
-  }
+  // if (budget !== "undefined" && budget !== "null") {
+  //   searchQuery = {
+  //     ...searchQuery,
+  //     AND: [
+  //       {
+  //         pricePerDay: {
+  //           lte: budget,
+  //         },
+  //       },
+  //     ],
+  //   };
+  // }
   return searchQuery;
 };
 
@@ -61,7 +61,7 @@ export async function GET(request: Request) {
 
   const text = searchParams.get("text");
   const startDate = searchParams.get("startDate");
-  const budget = searchParams.get("budget");
+  // const budget = searchParams.get("budget");
 
   if (!text) {
     return new NextResponse(
@@ -73,7 +73,7 @@ export async function GET(request: Request) {
   }
 
   const tripsResults = await prisma.trip.findMany({
-    where: generateSearchQuery(text, startDate, budget),
+    where: generateSearchQuery(text, startDate),
   });
 
   return new NextResponse(JSON.stringify(tripsResults), { status: 200 });

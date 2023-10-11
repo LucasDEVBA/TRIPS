@@ -58,7 +58,7 @@ const TripSearch = () => {
             control={control}
             render={({ field }) => (
               <DatePicker
-                placeholderText="Data de Início"
+                placeholderText="Data de Ida"
                 onChange={field.onChange}
                 selected={field.value}
                 className="w-full shadow-md"
@@ -66,7 +66,7 @@ const TripSearch = () => {
               />
             )}
           />
-          <Controller
+          {/* <Controller
             name="budget"
             control={control}
             render={({ field }) => (
@@ -78,7 +78,7 @@ const TripSearch = () => {
                 className="shadow-md"
               />
             )}
-          />
+          /> */}
         </div>
         <Button
           onClick={() => handleSubmit(onSubmit)()}
