@@ -25,8 +25,10 @@ const Header = () => {
   return (
     <div className="container mx-auto p-5 py-0 h-[93px] flex justify-between items-center lg:border-b lg:border-grayLighter">
       <Link href={"/"}>
-        <div className="relative h-[32px] w-[182px]">
-          <Image fill src="/logo.png" alt="fullstack trips" />
+        <div className="relative h-[32px] w-[182px] flex items-center flex-wrap">
+          <Image fill src="/next-js.svg" alt="fullstack trips" />
+
+          <span className="hidden lg:block">NextTrips</span>
         </div>
       </Link>
       {status === "unauthenticated" && (
