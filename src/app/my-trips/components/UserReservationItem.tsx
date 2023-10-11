@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import ReactCountryFlag from "react-country-flag";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 interface UserReservationItemProps {
   reservation: Prisma.TripReservationsGetPayload<{ include: { trip: true } }>;
@@ -23,19 +24,53 @@ const UserReservationItem = ({
   const { trip } = reservation;
 
   const handleDeleteReservation = async () => {
-    const response = await fetch(`/api/trips/reservation/${reservation.id}`, {
-      method: "DELETE",
+    const swalWithBootstrapButtons = Swal.mixin({
+      timer: 2500,
+      showConfirmButton: false,
     });
+    Swal.fire({
+      title: "Deseja mesmo cancelar?",
+      showCancelButton: true,
+      text: `Sua hospedagem em ${reservation.trip.name}`,
+      imageUrl: reservation.trip.coverImage,
+      imageWidth: 400,
+      imageHeight: 200,
+      confirmButtonText: "Sim, quero cancelar!",
+      confirmButtonColor: "#023E8A",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Não!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        swalWithBootstrapButtons.fire(
+          "Reserva cancelada!",
+          "Sua reserva foi cancelada com sucesso.",
+          "success"
+        );
+        const response = await fetch(
+          `/api/trips/reservation/${reservation.id}`,
+          {
+            method: "DELETE",
+          }
+        );
 
-    if (!response.ok) {
-      return toast.error("Erro ao cancelar reserva!", {
-        position: "bottom-center",
-      });
-    }
-    toast.success("Reserva cancelada com sucesso!", {
-      position: "bottom-center",
+        if (!response.ok) {
+          return toast.error("Erro ao cancelar reserva!", {
+            position: "bottom-center",
+          });
+        }
+        toast.success("Reserva cancelada com sucesso!", {
+          position: "bottom-center",
+        });
+
+        fetchReservations();
+      } else {
+        swalWithBootstrapButtons.fire(
+          "Parabéns",
+          "Sua reserva continua ativa :)",
+          "error"
+        );
+      }
     });
-    fetchReservations();
   };
   return (
     <div>
